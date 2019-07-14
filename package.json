@@ -1,7 +1,7 @@
 {
   "name": "gmaps-routing-lib",
   "version": "1.0.0",
-  "description": "A lib to make easy use of google maps api",
+  "description": "A Vue plugin lib to make easy use of google maps api geocode and directions",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
@@ -11,7 +11,11 @@
   "keywords": [
     "google",
     "maps",
-    "routing"
+    "routing",
+    "vue",
+    "vuejs",
+    "geocode",
+    "directions"
   ],
   "author": "Abel Ferreira",
   "repository": {

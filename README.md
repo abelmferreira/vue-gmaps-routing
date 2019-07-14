@@ -84,7 +84,6 @@ By default result was reduced to a resumed object, if you want a full google res
 Vue.$gmapsrouting.getGeocode(address, null, true).then(fullResponse => console.log(fullResponse))
 ```
 
-
 Its important to note that even if your country is set in the address object to the specified country, it is still possible to pull results from other countries. If you want to limit the results to a specific country, you must set the country code in the geocoder.
 
 ```javascript
