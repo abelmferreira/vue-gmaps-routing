@@ -6,19 +6,20 @@
 
 class GMapsRouting {
   constructor() {
-    this.defaultCountryCode = null
-    this.defaultLanguage = null
-    this.defaultMode = 'lat-lng'
+    this.countryCode = null
+    this.language = null
+    this.mode = 'lat-lng'
     this.googleMapsApiKey = ''
     this.requesTimeout = 20000
-    this.googleMapsUrl = 'https://maps.googleapis.com/maps/api/geocode/json'
+    this.googleGeocodeMapsUrl = 'https://maps.googleapis.com/maps/api/geocode/json'
   }
 
   setConfig(key, options = {}) {
-    this.defaultCountryCode = options.defaultCountryCode || null
-    this.defaultLanguage = options.defaultLanguage || null
-    this.defaultMode = options.defaultMode === 'lat-lng' ? 'lat-lng' : 'address'
-    this.googleMapsApiKey = key
+    this.countryCode = options.countryCode || null
+    this.language = options.language || null
+    this.mode = options.mode === 'lat-lng' ? 'lat-lng' : 'address'
+    this.requesTimeout = options.requesTimeout || this.requesTimeout
+    this.googleMapsApiKey = key || options.key
   }
 
   async createRequestObject(url) {
@@ -53,21 +54,21 @@ class GMapsRouting {
     })
   }
 
-  getDefaultUrl() {
-    let url = this.googleMapsUrl
+  getGeocodeUrl() {
+    let url = this.googleGeocodeMapsUrl
 
     url += '?key=' + encodeURIComponent(this.googleMapsApiKey)
-    if (this.defaultCountryCode) {
-      url += '&components=country:' + this.defaultCountryCode
+    if (this.countryCode) {
+      url += '&components=country:' + this.countryCode
     }
-    if (this.defaultLanguage) {
-      url += '&language=' + this.defaultLanguage
+    if (this.language) {
+      url += '&language=' + this.language
     }
 
     return url
   }
 
-  getGeocode(dataObj, mode = this.defaultMode, fullResponse = false) {
+  getGeocode(dataObj, mode = this.mode, fullResponse = false) {
     switch (mode) {
       case 'lat-lng':
         return this.getGoogleResponseFromLatLng(dataObj, fullResponse)
@@ -80,7 +81,7 @@ class GMapsRouting {
 
   async getGoogleResponseFromAddress(locationObj, fullResponse) {
     let address = this.toAddressString(locationObj)
-    let url = this.getDefaultUrl()
+    let url = this.getGeocodeUrl()
     url += '&address=' + encodeURIComponent(address)
     let response = await this.createRequestObject(url).then(response => response)
 
@@ -101,7 +102,7 @@ class GMapsRouting {
   }
 
   async getGoogleResponseFromLatLng(latLngObj, fullResponse) {
-    let url = this.getDefaultUrl()
+    let url = this.getGeocodeUrl()
     url += '&latlng=' + encodeURIComponent(latLngObj.lat) + ',' + encodeURIComponent(latLngObj.lng)
     let response = await this.createRequestObject(url).then(response => response)
 
@@ -129,8 +130,8 @@ class GMapsRouting {
   toAddressString(locationObj) {
     let addressStr = ''
     if (locationObj) {
-      addressStr += locationObj.address_line_1 ? locationObj.address_line_1 + ' ' : ''
-      addressStr += locationObj.address_line_2 ? locationObj.address_line_2 + ' ' : ''
+      addressStr += locationObj.address1 ? locationObj.address1 + ' ' : ''
+      addressStr += locationObj.address2 ? locationObj.address2 + ' ' : ''
       addressStr += locationObj.city ? locationObj.city + ', ' : ''
       if (locationObj.province || locationObj.postal_code) {
         addressStr += locationObj.province ? locationObj.province + ', ' : ''
@@ -144,16 +145,16 @@ class GMapsRouting {
     return addressStr
   }
 
-  setDefaultCountryCode(code) {
-    this.defaultCountryCode = code
+  setCountryCode(code) {
+    this.countryCode = code
   }
 
-  setDefaultLanguage(code) {
-    this.defaultLanguage = code
+  setLanguage(code) {
+    this.language = code
   }
 
-  setDefaultMode(mode) {
-    this.defaultMode = mode === 'address' ? mode : 'lat-lng'
+  setMode(mode) {
+    this.mode = mode === 'address' ? mode : 'lat-lng'
   }
 
   setGoogleMapsApiKey(key) {
@@ -165,16 +166,16 @@ class GMapsRouting {
     else return new Error('Timeout param must be a positive number')
   }
 
-  getDefaultCountryCode() {
-    return this.defaultCountryCode
+  getCountryCode() {
+    return this.countryCode
   }
 
-  getDefaultLanguage() {
-    return this.defaultLanguage
+  getLanguage() {
+    return this.language
   }
 
-  getDefaultMode() {
-    return this.defaultMode
+  getMode() {
+    return this.mode
   }
 
   getGoogleMapsApiKey() {

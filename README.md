@@ -16,11 +16,14 @@ See it on [npm](https://www).
 ## How to initialize with Vue
 
 ```javascript
-import { gMapsRoutingVue } from "XXX"
+import { VuegMapsRouting } from "XXX"
 
-Vue.use(gMapsRoutingVue, {
-    defaultMode:        'address'
-    googleMapsApiKey:   GOOGLE_MAPS_API_KEY
+Vue.use(VuegMapsRouting, {
+    mode: 'address',            // all options are optional, except google api key
+    countryCode: null,
+    language: null,
+    requesTimeout: 20000,
+    key: 'GOOGLE_MAPS_API_KEY'
 })
 ```
 
@@ -30,8 +33,8 @@ Vue.use(gMapsRoutingVue, {
 import gMapsRouting from "XXX"
 
 
-gMapsRouting.setConfig(GOOGLE_MAPS_API_KEY, {
-  defaultMode: 'lat-lng'
+gMapsRouting.setConfig('GOOGLE_MAPS_API_KEY', {
+  mode: 'lat-lng'
 })
 ```
 
@@ -53,10 +56,10 @@ Vue.$gmapsrouting.[FUNCTION_NAME]
 ### Examples
 
 ```javascript
-Vue.$gmapsrouting.setDefaultMode('address') // default is lat-lng
+Vue.$gmapsrouting.setMode('address') // address is default mode
 var address = {
-  address_line_1: '1 Praça Mauá',
-  address_line_2: '',
+  address1: '1 Praça Mauá',
+  address2: '',
   city: 'Rio de Janeiro',
   state: 'RJ',
   zip_code: '20081-240',

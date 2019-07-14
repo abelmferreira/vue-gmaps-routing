@@ -4,14 +4,14 @@ describe('GMapsRouting', () => {
   const key = process.env.GOOGLEKEY
 
   const options = {
-    defaultCountryCode: null,
-    defaultLanguage: null,
-    defaultMode: 'address'
+    countryCode: null,
+    language: null,
+    mode: 'address'
   }
 
   let addressObj = {
-    address_line_1: '1 Praça Mauá',
-    address_line_2: '',
+    address1: '1 Praça Mauá',
+    address2: '',
     city: 'Rio de Janeiro',
     state: 'RJ',
     zip_code: '20081-240',
@@ -45,7 +45,7 @@ describe('GMapsRouting', () => {
   })
 
   test('should return lat and long from adress object with full response and mode diferent from default', async () => {
-    gMapsRouting.setDefaultMode('lat-lng')
+    gMapsRouting.setMode('lat-lng')
 
     let expected = { status: 'OK' }
     let testeResult = await gMapsRouting.getGeocode(addressObj, 'address', true).then(result => result)
