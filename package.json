@@ -1,6 +1,6 @@
 {
   "name": "gmaps-routing-lib",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Vue plugin lib to make easy use of google maps api geocode and directions",
   "main": "index.js",
   "scripts": {

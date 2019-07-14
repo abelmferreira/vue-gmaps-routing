@@ -7,7 +7,7 @@ See it on [npm](https://www).
 
 ## Installation
 
-```npm install --save XXXXX```
+```npm install --save gmaps-routing-lib```
 
 ## Test
 
@@ -16,7 +16,7 @@ See it on [npm](https://www).
 ## How to initialize with Vue
 
 ```javascript
-import { VuegMapsRouting } from "XXX"
+import { VuegMapsRouting } from "gmaps-routing-lib"
 
 Vue.use(VuegMapsRouting, {
     mode: 'address',            // all options are optional, except google api key
@@ -30,7 +30,7 @@ Vue.use(VuegMapsRouting, {
 ## How to initialize like package
 
 ```javascript
-import gMapsRouting from "XXX"
+import gMapsRouting from "gmaps-routing-lib"
 
 
 gMapsRouting.setConfig('GOOGLE_MAPS_API_KEY', {
@@ -43,7 +43,7 @@ gMapsRouting.setConfig('GOOGLE_MAPS_API_KEY', {
 ### General usage
 
 ```javascript
-  import gMapsRouting from "XXX"
+  import gMapsRouting from "gmaps-routing-lib"
   gMapsRouting.[FUNCTION_NAME]
 ```
 
