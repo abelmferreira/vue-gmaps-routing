@@ -16,7 +16,7 @@
   "author": "Abel Ferreira",
   "repository": {
     "type": "git",
-    "url": "git+https://bitbucket.org/minharota/minharota-gmaps-routing-lib.git"
+    "url": "https://github.com/abelmferreira/vue-gmaps-routing.git"
   },
   "license": "MIT",
   "devDependencies": {
