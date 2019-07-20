@@ -19,7 +19,7 @@ See it on [npm](https://www).
 import { VuegMapsRouting } from "gmaps-routing-lib"
 
 Vue.use(VuegMapsRouting, {
-    mode: 'address',            // all options are optional, except google api key
+    geocodeMode: 'address',            // all options are optional, except google api key
     countryCode: null,
     language: null,
     requesTimeout: 20000,
@@ -33,8 +33,9 @@ Vue.use(VuegMapsRouting, {
 import gMapsRouting from "gmaps-routing-lib"
 
 
-gMapsRouting.setConfig('GOOGLE_MAPS_API_KEY', {
-  mode: 'lat-lng'
+gMapsRouting.setConfig({
+  key: 'GOOGLE_MAPS_API_KEY',
+  geocodeMode: 'lat-lng'
 })
 ```
 
@@ -56,7 +57,7 @@ Vue.$gmapsrouting.[FUNCTION_NAME]
 ### Examples
 
 ```javascript
-Vue.$gmapsrouting.setMode('address') // address is default mode
+Vue.$gmapsrouting.setGeocodeMode('address') // address is default mode
 var address = {
   address1: '1 Praça Mauá',
   address2: '',
@@ -87,7 +88,7 @@ Vue.$gmapsrouting.getGeocode(address, null, true).then(fullResponse => console.l
 Its important to note that even if your country is set in the address object to the specified country, it is still possible to pull results from other countries. If you want to limit the results to a specific country, you must set the country code in the geocoder.
 
 ```javascript
-Vue.$gmapsrouting.setDefaultCountryCode('CA');
+Vue.$gmapsrouting.setCountryCode('CA');
 ```
 
 [Click here for Country Codes](https://developers.google.com/maps/coverage)
@@ -97,9 +98,14 @@ Vue.$gmapsrouting.setDefaultCountryCode('CA');
 To get result in your language you should set language code in the geocoder
 
 ```javascript
-Vue.$gmapsrouting.setDefaultLanguage('en') // this is default
+Vue.$gmapsrouting.setLanguage('en') // this is default
 ```
 
 ## License
 
 This project is covered under the MIT License. Feel free to use it wherever you like.
+
+## Links
+
+[Google Maps Directions API Developer Guide](https://developers.google.com/maps/documentation/directions/intro)
+[Google Maps Geocoding API Developer Guide](https://developers.google.com/maps/documentation/geocoding/intro)

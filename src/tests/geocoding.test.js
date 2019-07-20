@@ -1,12 +1,11 @@
-import gMapsRouting from '.'
+import gMapsRouting from '../'
 
-describe('GMapsRouting', () => {
-  const key = process.env.GOOGLEKEY
-
+describe('Geocoding tests', () => {
   const options = {
+    key: process.env.GOOGLEKEY,
     countryCode: null,
     language: null,
-    mode: 'address'
+    geocodeMode: 'address'
   }
 
   let addressObj = {
@@ -29,7 +28,7 @@ describe('GMapsRouting', () => {
   }
 
   beforeEach(() => {
-    gMapsRouting.setConfig(key, options)
+    gMapsRouting.setConfig(options)
   })
 
   test('should return lat and long from adress object with default mode set to address', async () => {
@@ -45,7 +44,7 @@ describe('GMapsRouting', () => {
   })
 
   test('should return lat and long from adress object with full response and mode diferent from default', async () => {
-    gMapsRouting.setMode('lat-lng')
+    gMapsRouting.setGeocodeMode('lat-lng')
 
     let expected = { status: 'OK' }
     let testeResult = await gMapsRouting.getGeocode(addressObj, 'address', true).then(result => result)
