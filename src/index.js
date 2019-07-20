@@ -4,6 +4,8 @@
  * @param configOptions - a config object with options set
  */
 
+import { loadApi, loadedApi, directionsService, geocodingService } from './loadGmapsApi'
+
 class GMapsRouting {
   constructor() {
     this.countryCode = null
@@ -36,6 +38,20 @@ class GMapsRouting {
     if (options.directionsTravelMode) this.setDirectionsTravelMode(options.directionsTravelMode)
     if (options.directionsUnit) this.setDirectionsUnit(options.directionsUnit)
     if (options.directionsAvoid) this.setDirectionsAvoid(options.directionsAvoid)
+
+    if (!loadedApi) {
+      console.log('loading API Google')
+      let that = this
+      console.log(this)
+      loadApi({
+        region: that.countryCode,
+        language: that.language,
+        key: that.googleMapsApiKey,
+        libraries: 'places,drawing,visualization'
+      })
+
+      console.log(directionsService)
+    }
   }
 
   createRequestObject(url) {
@@ -60,7 +76,7 @@ class GMapsRouting {
         resolve({ status: 'REQUEST_TIMEOUT', url: url, timeout: this.requesTimeout })
       }
 
-      xhr.onerror = function() {
+      xhr.onerror = function(e, b) {
         resolve({ status: 'GENERAL_ERROR', url: url })
       }
 
@@ -70,14 +86,16 @@ class GMapsRouting {
 
       xhr.responseType = 'json'
       xhr.timeout = this.requesTimeout
-      xhr.withCredentials = true
+      // xhr.withCredentials = true
 
       xhr.open('GET', url)
       // xhr.setRequestHeader('Accept', '*/*')
+      // xhr.setRequestHeader('access-control-allow-origin', '*')
       // xhr.setRequestHeader('Access-Control-Allow-Origin', 'http://localhost')
       // xhr.setRequestHeader('Access-Control-Allow-Origin', '*')
       // xhr.setRequestHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
       // xhr.setRequestHeader('Access-Control-Allow-Headers', 'Content-Type')
+      // xhr.setRequestHeader('content-type', 'image/gif')
       xhr.send()
     })
   }
@@ -243,16 +261,16 @@ class GMapsRouting {
     let destinationFormated = this.prepareDestinationString(destination)
     let url = this.getDirectionsUrl(destinationFormated)
 
-    console.log('url ->>', url)
+    // console.log('url ->>', url)
 
     let response2 = await this.createRequestObject(url).then(response => {
       console.log(response)
       return response
     })
 
-    console.log('response ->>', JSON.stringify(response2))
+    // console.log('response ->>', JSON.stringify(response2))
 
-    return response2
+    // return response2
 
     // if (response.status && response.status === 'OK') {
     //   if (fullResponse) {
